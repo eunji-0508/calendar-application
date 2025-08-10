@@ -1,10 +1,7 @@
 package org.example.calendarapplication.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.calendarapplication.dto.CalendarCreateRequestDto;
-import org.example.calendarapplication.dto.CalendarCreateResponseDto;
-import org.example.calendarapplication.dto.CalendarReadAllResponseDto;
-import org.example.calendarapplication.dto.CalendarReadSingleResponseDto;
+import org.example.calendarapplication.dto.*;
 import org.example.calendarapplication.entity.Calendar;
 import org.example.calendarapplication.repository.CalendarRepository;
 import org.springframework.stereotype.Service;
@@ -63,6 +60,25 @@ public class CalendarService {
         );
 
         return new CalendarReadSingleResponseDto(
+                calendar.getId(),
+                calendar.getUsername(),
+                calendar.getTitle(),
+                calendar.getContent(),
+                calendar.getCreatedAt(),
+                calendar.getModifiedAt()
+        );
+    }
+
+    // 일정 수정 (Update)
+    @Transactional
+    public CalendarUpdateResponseDto updateCalendar(Long calendarId, CalendarUpdateRequestDto calendarUpdateRequestDto) {
+        Calendar calendar = calendarRepository.findById(calendarId).orElseThrow(
+                () -> new IllegalArgumentException("해당 id는 존재하지 않습니다.")
+        );
+
+        calendar.update(calendarUpdateRequestDto.getTitle(), calendarUpdateRequestDto.getContent());
+
+        return new CalendarUpdateResponseDto(
                 calendar.getId(),
                 calendar.getUsername(),
                 calendar.getTitle(),
