@@ -40,6 +40,7 @@ public class CalendarService {
     }
 
     // 전체 일정 조회 (Read)
+    @Transactional(readOnly = true)
     public List<CalendarReadAllResponseDto> getAllCalendars() {
         List<Calendar> calendars = calendarRepository.findAll();
 
