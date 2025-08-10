@@ -4,12 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.example.calendarapplication.dto.CalendarCreateRequestDto;
 import org.example.calendarapplication.dto.CalendarCreateResponseDto;
 import org.example.calendarapplication.dto.CalendarReadAllResponseDto;
+import org.example.calendarapplication.dto.CalendarReadSingleResponseDto;
 import org.example.calendarapplication.service.CalendarService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,6 +28,14 @@ public class CalendarController {
     @GetMapping("/calendars")
     public ResponseEntity<List<CalendarReadAllResponseDto>> getAllCalendars() {
         return ResponseEntity.ok(calendarService.getAllCalendars());
+    }
+
+    // 일정 단건 조회 (Read)
+    @GetMapping("/calendars/{calendarId}")
+    public ResponseEntity<CalendarReadSingleResponseDto> getCalendar(
+            @PathVariable Long calendarId
+    ) {
+        return ResponseEntity.ok(calendarService.getCalendar(calendarId));
     }
 
 }

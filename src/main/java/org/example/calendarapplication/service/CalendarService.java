@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.calendarapplication.dto.CalendarCreateRequestDto;
 import org.example.calendarapplication.dto.CalendarCreateResponseDto;
 import org.example.calendarapplication.dto.CalendarReadAllResponseDto;
+import org.example.calendarapplication.dto.CalendarReadSingleResponseDto;
 import org.example.calendarapplication.entity.Calendar;
 import org.example.calendarapplication.repository.CalendarRepository;
 import org.springframework.stereotype.Service;
@@ -52,5 +53,22 @@ public class CalendarService {
                 calendar.getCreatedAt(),
                 calendar.getModifiedAt()
         )).collect(Collectors.toList());
+    }
+
+    // 일정 단건 조회 (Read)
+    @Transactional(readOnly = true)
+    public CalendarReadSingleResponseDto getCalendar(Long calendarId) {
+        Calendar calendar = calendarRepository.findById(calendarId).orElseThrow(
+                () -> new IllegalArgumentException("해당 id는 존재하지 않습니다.")
+        );
+
+        return new CalendarReadSingleResponseDto(
+                calendar.getId(),
+                calendar.getUsername(),
+                calendar.getTitle(),
+                calendar.getContent(),
+                calendar.getCreatedAt(),
+                calendar.getModifiedAt()
+        );
     }
 }
