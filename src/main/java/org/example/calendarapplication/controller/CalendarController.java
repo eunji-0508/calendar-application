@@ -44,4 +44,12 @@ public class CalendarController {
         return ResponseEntity.ok(calendarService.updateCalendar(calendarId, calendarUpdateRequestDto));
     }
 
+    // 일정 삭제 (Delete)
+    @DeleteMapping("/calendars/{calendarId}")
+    public void deleteCalendar(
+            @PathVariable Long calendarId
+    ) {
+        calendarService.deleteCalendar(calendarId);
+    }
+
 }

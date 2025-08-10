@@ -87,4 +87,14 @@ public class CalendarService {
                 calendar.getModifiedAt()
         );
     }
+
+    // 일정 삭제 (Delete)
+    @Transactional
+    public void deleteCalendar(Long calendarId) {
+        calendarRepository.findById(calendarId).orElseThrow(
+                () -> new IllegalArgumentException("해당 id는 존재하지 않습니다.")
+        );
+
+        calendarRepository.deleteById(calendarId);
+    }
 }
