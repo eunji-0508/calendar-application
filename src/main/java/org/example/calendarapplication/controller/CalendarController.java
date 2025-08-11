@@ -30,11 +30,12 @@ public class CalendarController {
     }
 
     // 일정 단건 조회 (Read)
-    @GetMapping("/calendars/{calendarId}")
+    @GetMapping("users/{userId}/calendars/{calendarId}")
     public ResponseEntity<CalendarReadSingleResponseDto> getCalendar(
+            @PathVariable Long userId,
             @PathVariable Long calendarId
     ) {
-        return ResponseEntity.ok(calendarService.getCalendar(calendarId));
+        return ResponseEntity.ok(calendarService.getCalendar(userId, calendarId));
     }
 
     // 일정 수정 (Update)
