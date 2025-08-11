@@ -14,6 +14,4 @@ public interface CalendarRepository extends JpaRepository<Calendar, Long> {
 
     // User ID와 Calendar ID에 해당하는 일정을 조회하는 메서드
     Optional<Calendar> findByUserIdAndId(Long userId, Long calendarId);
-
-    Long user(User user);
 }

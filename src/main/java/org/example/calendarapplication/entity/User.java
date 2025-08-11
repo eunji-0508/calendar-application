@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class User extends BaseEntity {  // 작성일과 수정일 필드는 상속받았기 때문에 가지고 있음
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id;            // 유저 ID
     private String username;    // 유저명
     private String email;       // 이메일
 

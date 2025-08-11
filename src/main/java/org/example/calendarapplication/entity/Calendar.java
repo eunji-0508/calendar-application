@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 public class Calendar extends BaseEntity {  // 작성일과 수정일 필드는 상속받았기 때문에 가지고 있음
     // 필드
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-//    private String username;    // 작성 유저명
+    private Long id;            // 일정 ID
     private String title;       // 할일 제목
     private String content;     // 할일 내용
 
+    // 연관 관계
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;

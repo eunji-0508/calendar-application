@@ -56,5 +56,4 @@ public class CalendarController {
     ) {
         calendarService.deleteCalendar(userId, calendarId);
     }
-
 }
