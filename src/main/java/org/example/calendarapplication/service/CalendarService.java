@@ -8,6 +8,8 @@ import org.example.calendarapplication.repository.CalendarRepository;
 import org.example.calendarapplication.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,12 +45,15 @@ public class CalendarService {
 
     // 전체 일정 조회 (Read)
     @Transactional(readOnly = true)
-    public List<CalendarReadAllResponseDto> getAllCalendars() {
-        List<Calendar> calendars = calendarRepository.findAll();
+    public List<CalendarReadAllResponseDto> getAllCalendars(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(
+                () -> new IllegalArgumentException("해당 User ID는 존재하지 않습니다.")
+        );
+
+        List<Calendar> calendars = calendarRepository.findAllByUser(user);
 
         return calendars.stream().map(calendar -> new CalendarReadAllResponseDto(
                 calendar.getId(),
-                calendar.getUsername(),
                 calendar.getTitle(),
                 calendar.getContent(),
                 calendar.getCreatedAt(),

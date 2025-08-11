@@ -22,9 +22,11 @@ public class CalendarController {
     }
 
     // 전체 일정 조회 (Read)
-    @GetMapping("/calendars")
-    public ResponseEntity<List<CalendarReadAllResponseDto>> getAllCalendars() {
-        return ResponseEntity.ok(calendarService.getAllCalendars());
+    @GetMapping("users/{userId}/calendars")
+    public ResponseEntity<List<CalendarReadAllResponseDto>> getAllCalendars(
+            @PathVariable Long userId
+    ) {
+        return ResponseEntity.ok(calendarService.getAllCalendars(userId));
     }
 
     // 일정 단건 조회 (Read)
