@@ -4,12 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.example.calendarapplication.dto.UserCreateRequestDto;
 import org.example.calendarapplication.dto.UserCreateResponseDto;
 import org.example.calendarapplication.dto.UserReadAllResponseDto;
+import org.example.calendarapplication.dto.UserReadSingleResponseDto;
 import org.example.calendarapplication.service.UserService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,5 +28,13 @@ public class UserController {
     @GetMapping("/users")
     public ResponseEntity<List<UserReadAllResponseDto>> getAllUsers() {
         return ResponseEntity.ok(userService.getAllUsers());
+    }
+
+    // 유저 단건 조회 (Read)
+    @GetMapping("/users/{userId}")
+    public ResponseEntity<UserReadSingleResponseDto> getUser(
+            @PathVariable Long userId
+    ) {
+        return ResponseEntity.ok(userService.getUser(userId));
     }
 }
