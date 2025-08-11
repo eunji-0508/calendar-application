@@ -19,4 +19,10 @@ public class User extends BaseEntity {  // 작성일과 수정일 필드는 상�
         this.username = username;
         this.email = email;
     }
+
+    // 수정 메서드
+    public void update(String username, String email) {
+        this.username = username;
+        this.email = email;
+    }
 }

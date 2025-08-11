@@ -1,10 +1,7 @@
 package org.example.calendarapplication.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.calendarapplication.dto.UserCreateRequestDto;
-import org.example.calendarapplication.dto.UserCreateResponseDto;
-import org.example.calendarapplication.dto.UserReadAllResponseDto;
-import org.example.calendarapplication.dto.UserReadSingleResponseDto;
+import org.example.calendarapplication.dto.*;
 import org.example.calendarapplication.entity.User;
 import org.example.calendarapplication.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -55,6 +52,24 @@ public class UserService {
         );
 
         return new UserReadSingleResponseDto(
+                user.getId(),
+                user.getUsername(),
+                user.getEmail(),
+                user.getCreatedAt(),
+                user.getModifiedAt()
+        );
+    }
+
+    // 유저 수정 (Update)
+    @Transactional
+    public UserUpdateResponseDto updateUser(Long userId, UserUpdateRequestDto userUpdateRequestDto) {
+        User user = userRepository.findById(userId).orElseThrow(
+                () -> new IllegalArgumentException("해당 User ID는 존재하지 않습니다.")
+        );
+
+        user.update(userUpdateRequestDto.getUsername(), userUpdateRequestDto.getEmail());
+
+        return new UserUpdateResponseDto(
                 user.getId(),
                 user.getUsername(),
                 user.getEmail(),

@@ -1,10 +1,7 @@
 package org.example.calendarapplication.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.example.calendarapplication.dto.UserCreateRequestDto;
-import org.example.calendarapplication.dto.UserCreateResponseDto;
-import org.example.calendarapplication.dto.UserReadAllResponseDto;
-import org.example.calendarapplication.dto.UserReadSingleResponseDto;
+import org.example.calendarapplication.dto.*;
 import org.example.calendarapplication.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,5 +33,14 @@ public class UserController {
             @PathVariable Long userId
     ) {
         return ResponseEntity.ok(userService.getUser(userId));
+    }
+
+    // 유저 수정 (Update)
+    @PatchMapping("/users/{userId}")
+    public ResponseEntity<UserUpdateResponseDto> updateUser(
+            @PathVariable Long userId,
+            @RequestBody UserUpdateRequestDto userUpdateRequestDto
+    ) {
+        return ResponseEntity.ok(userService.updateUser(userId, userUpdateRequestDto));
     }
 }

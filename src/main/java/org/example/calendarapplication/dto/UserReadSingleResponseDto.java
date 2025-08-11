@@ -1,7 +1,6 @@
 package org.example.calendarapplication.dto;
 
 import lombok.Getter;
-
 import java.time.LocalDateTime;
 
 // 유저 단건 조회용 ResponseDto
