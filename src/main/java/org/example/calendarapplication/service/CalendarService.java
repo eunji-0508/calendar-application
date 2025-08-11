@@ -96,9 +96,9 @@ public class CalendarService {
 
     // 일정 삭제 (Delete)
     @Transactional
-    public void deleteCalendar(Long calendarId) {
-        calendarRepository.findById(calendarId).orElseThrow(
-                () -> new IllegalArgumentException("해당 id는 존재하지 않습니다.")
+    public void deleteCalendar(Long userId, Long calendarId) {
+        calendarRepository.findByUserIdAndId(userId, calendarId).orElseThrow(
+                () -> new IllegalArgumentException("해당 User ID 또는 Calendar ID가 존재하지 않습니다.")
         );
 
         calendarRepository.deleteById(calendarId);

@@ -49,11 +49,12 @@ public class CalendarController {
     }
 
     // 일정 삭제 (Delete)
-    @DeleteMapping("/calendars/{calendarId}")
+    @DeleteMapping("users/{userId}/calendars/{calendarId}")
     public void deleteCalendar(
+            @PathVariable Long userId,
             @PathVariable Long calendarId
     ) {
-        calendarService.deleteCalendar(calendarId);
+        calendarService.deleteCalendar(userId, calendarId);
     }
 
 }
