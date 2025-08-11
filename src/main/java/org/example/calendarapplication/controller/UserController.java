@@ -5,7 +5,6 @@ import org.example.calendarapplication.dto.*;
 import org.example.calendarapplication.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -42,5 +41,13 @@ public class UserController {
             @RequestBody UserUpdateRequestDto userUpdateRequestDto
     ) {
         return ResponseEntity.ok(userService.updateUser(userId, userUpdateRequestDto));
+    }
+
+    // 유저 삭제 (Delete)
+    @DeleteMapping("/users/{userId}")
+    public void deleteUser(
+            @PathVariable Long userId
+    ) {
+        userService.deleteUser(userId);
     }
 }
