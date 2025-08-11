@@ -78,16 +78,15 @@ public class CalendarService {
 
     // 일정 수정 (Update)
     @Transactional
-    public CalendarUpdateResponseDto updateCalendar(Long calendarId, CalendarUpdateRequestDto calendarUpdateRequestDto) {
-        Calendar calendar = calendarRepository.findById(calendarId).orElseThrow(
-                () -> new IllegalArgumentException("해당 id는 존재하지 않습니다.")
+    public CalendarUpdateResponseDto updateCalendar(Long userId, Long calendarId, CalendarUpdateRequestDto calendarUpdateRequestDto) {
+        Calendar calendar = calendarRepository.findByUserIdAndId(userId, calendarId).orElseThrow(
+                () -> new IllegalArgumentException("해당 User ID 또는 Calendar ID가 존재하지 않습니다.")
         );
 
         calendar.update(calendarUpdateRequestDto.getTitle(), calendarUpdateRequestDto.getContent());
 
         return new CalendarUpdateResponseDto(
                 calendar.getId(),
-                calendar.getUsername(),
                 calendar.getTitle(),
                 calendar.getContent(),
                 calendar.getCreatedAt(),

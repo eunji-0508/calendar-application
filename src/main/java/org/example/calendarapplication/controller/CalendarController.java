@@ -39,12 +39,13 @@ public class CalendarController {
     }
 
     // 일정 수정 (Update)
-    @PatchMapping("/calendars/{calendarId}")
+    @PatchMapping("users/{userId}/calendars/{calendarId}")
     public ResponseEntity<CalendarUpdateResponseDto> updateCalendar(
+            @PathVariable Long userId,
             @PathVariable Long calendarId,
             @RequestBody CalendarUpdateRequestDto calendarUpdateRequestDto
     ) {
-        return ResponseEntity.ok(calendarService.updateCalendar(calendarId, calendarUpdateRequestDto));
+        return ResponseEntity.ok(calendarService.updateCalendar(userId, calendarId, calendarUpdateRequestDto));
     }
 
     // 일정 삭제 (Delete)
