@@ -3,11 +3,11 @@ package org.example.calendarapplication.service;
 import lombok.RequiredArgsConstructor;
 import org.example.calendarapplication.dto.*;
 import org.example.calendarapplication.entity.Calendar;
+import org.example.calendarapplication.entity.User;
 import org.example.calendarapplication.repository.CalendarRepository;
+import org.example.calendarapplication.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,21 +15,25 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CalendarService {
     private final CalendarRepository calendarRepository;
+    private final UserRepository userRepository;
 
     // 일정 생성 (Create)
     @Transactional
-    public CalendarCreateResponseDto createCalendar(CalendarCreateRequestDto calendarCreateRequestDto) {
+    public CalendarCreateResponseDto createCalendar(Long userId, CalendarCreateRequestDto calendarCreateRequestDto) {
+        User user = userRepository.findById(userId).orElseThrow(
+                () -> new IllegalArgumentException("해당 User ID는 존재하지 않습니다.")
+        );
+
         Calendar calendar = new Calendar(
-                calendarCreateRequestDto.getUsername(),
                 calendarCreateRequestDto.getTitle(),
-                calendarCreateRequestDto.getContent()
+                calendarCreateRequestDto.getContent(),
+                user
                 );
 
         Calendar savedCalendar = calendarRepository.save(calendar);
 
         return new CalendarCreateResponseDto(
                 savedCalendar.getId(),
-                savedCalendar.getUsername(),
                 savedCalendar.getTitle(),
                 savedCalendar.getContent(),
                 savedCalendar.getCreatedAt(),

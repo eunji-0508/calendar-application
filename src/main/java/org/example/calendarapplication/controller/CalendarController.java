@@ -5,7 +5,6 @@ import org.example.calendarapplication.dto.*;
 import org.example.calendarapplication.service.CalendarService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -14,11 +13,12 @@ public class CalendarController {
     private final CalendarService calendarService;
 
     // 일정 생성 (Create)
-    @PostMapping("/calendars")
+    @PostMapping("users/{userId}/calendars")
     public ResponseEntity<CalendarCreateResponseDto> createCalendar(
+            @PathVariable Long userId,
             @RequestBody CalendarCreateRequestDto calendarCreateRequestDto
             ) {
-        return ResponseEntity.ok(calendarService.createCalendar(calendarCreateRequestDto));
+        return ResponseEntity.ok(calendarService.createCalendar(userId, calendarCreateRequestDto));
     }
 
     // 전체 일정 조회 (Read)
