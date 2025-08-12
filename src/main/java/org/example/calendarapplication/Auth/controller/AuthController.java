@@ -39,4 +39,16 @@ public class AuthController {
 
         return "해당 User로 로그인이 완료되었습니다.";
     }
+
+    // 로그아웃
+    @PostMapping("/logout")
+    public void logout(HttpServletRequest request) {
+        // 로그인하지 않았을 경우 HttpSession이 null로 반환하도록 false로 지정함
+        HttpSession session = request.getSession(false);
+
+        // 세션이 존재할 경우(로그인 했을 경우)
+        if(session != null) {
+            session.invalidate();   // 해당 세션(데이터)을 삭제함
+        }
+    }
 }
