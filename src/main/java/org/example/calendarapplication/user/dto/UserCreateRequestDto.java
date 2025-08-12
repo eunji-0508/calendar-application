@@ -8,4 +8,5 @@ import lombok.Getter;
 public class UserCreateRequestDto {
     private String username;    // 유저명
     private String email;       // 이메일
+    private String password;    // 비밀번호
 }

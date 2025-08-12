@@ -13,12 +13,14 @@ public class User extends BaseEntity {  // 작성일과 수정일 필드는 상�
     private Long id;            // 유저 ID
     private String username;    // 유저명
     private String email;       // 이메일
+    private String password;    // 비밀번호
 
     // 생성자
     // id는 자동 생성되므로 생성자에서 받지 않음
-    public User(String username, String email) {
+    public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
+        this.password = password;
     }
 
     // 수정 메서드
