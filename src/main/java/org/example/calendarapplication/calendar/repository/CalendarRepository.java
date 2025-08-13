@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 // JpaRepository에 @Repository 포함되어 있기 때문에 안써도 됨
-// <클래스명, 기본 키>
+// <클래스명, 기본키>
 public interface CalendarRepository extends JpaRepository<Calendar, Long> {
     // 해당 User의 모든 일정(Calendar) 리스트를 조회하는 메서드
     List<Calendar> findAllByUser(User user);

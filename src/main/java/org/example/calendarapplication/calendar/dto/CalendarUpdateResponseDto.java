@@ -8,8 +8,8 @@ import java.time.LocalDateTime;
 @Getter
 public class CalendarUpdateResponseDto {
     private final Long id;              // 일정 ID
-    private final String title;       // 할일 제목
-    private final String content;     // 할일 내용
+    private final String title;         // 할일 제목
+    private final String content;       // 할일 내용
     private final LocalDateTime createdAt;  // 작성일
     private final LocalDateTime modifiedAt; // 수정일
 
