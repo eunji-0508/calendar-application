@@ -1,5 +1,6 @@
 package org.example.calendarapplication.calendar.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.calendarapplication.calendar.dto.*;
 import org.example.calendarapplication.calendar.service.CalendarService;
@@ -26,7 +27,7 @@ public class CalendarController {
     @PostMapping("/users/{userId}/calendars")
     public ResponseEntity<CalendarCreateResponseDto> createCalendar(
             @PathVariable Long userId,                                          // @PathVariable: URL로 전달된 값을 파라미터로 받아오는 역할을 함
-            @RequestBody CalendarCreateRequestDto calendarCreateRequestDto      // HTTP 요청 Body에 담긴 JSON 데이터를 CalendarCreateRequestDto 객체로 변환함
+            @Valid @RequestBody CalendarCreateRequestDto calendarCreateRequestDto      // HTTP 요청 Body에 담긴 JSON 데이터를 CalendarCreateRequestDto 객체로 변환함
     ) {
         // 새로운 일정을 생성하고, 생성된 일정 정보를 HTTP 200 OK와 함께 반환함
         return ResponseEntity.ok(calendarService.createCalendar(userId, calendarCreateRequestDto));
