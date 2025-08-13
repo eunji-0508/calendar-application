@@ -24,9 +24,7 @@ public class CalendarService {
     public CalendarCreateResponseDto createCalendar(Long userId, CalendarCreateRequestDto calendarCreateRequestDto) {
         // 유저 ID가 일치하는 User 엔티티를 조회함
         // 일치하는 User 엔티티가 없으면 예외를 발생시킴
-        User user = userRepository.findById(userId).orElseThrow(
-                () -> new IllegalArgumentException("해당 User ID는 존재하지 않습니다.")
-        );
+        User user = findUserById(userId);
 
         // DTO로부터 전달받은 데이터를 통해 Calendar 엔티티를 생성함
         Calendar calendar = new Calendar(
@@ -53,9 +51,7 @@ public class CalendarService {
     public List<CalendarReadAllResponseDto> getAllCalendars(Long userId) {
         // 유저 ID가 일치하는 User 엔티티를 조회함
         // 일치하는 User 엔티티가 없으면 예외를 발생시킴
-        User user = userRepository.findById(userId).orElseThrow(
-                () -> new IllegalArgumentException("해당 User ID는 존재하지 않습니다.")
-        );
+        User user = findUserById(userId);
 
         // findAllByUser 메서드를 활용하여 해당 유저의 모든 일정 정보를 리스트로 가져옴
         List<Calendar> calendars = calendarRepository.findAllByUser(user);
@@ -75,9 +71,7 @@ public class CalendarService {
     public CalendarReadSingleResponseDto getCalendar(Long userId, Long calendarId) {
         // 유저 ID와 캘린더 ID가 일치하는 Calendar 엔티티를 조회함
         // 일치하는 Calendar 엔티티가 없으면 예외를 발생시킴
-        Calendar calendar = calendarRepository.findByUserIdAndId(userId, calendarId).orElseThrow(
-                () -> new IllegalArgumentException("해당 User ID 또는 Calendar ID가 존재하지 않습니다.")
-        );
+        Calendar calendar = findCalendarByUserIdAndCalendarId(userId, calendarId);
 
         // calendar의 정보를 이용하여 응답 DTO을 생성하고 반환함
         return new CalendarReadSingleResponseDto(
@@ -94,9 +88,7 @@ public class CalendarService {
     public CalendarUpdateResponseDto updateCalendar(Long userId, Long calendarId, CalendarUpdateRequestDto calendarUpdateRequestDto) {
         // 유저 ID와 캘린더 ID가 일치하는 Calendar 엔티티를 조회함
         // 일치하는 Calendar 엔티티가 없으면 예외를 발생시킴
-        Calendar calendar = calendarRepository.findByUserIdAndId(userId, calendarId).orElseThrow(
-                () -> new IllegalArgumentException("해당 User ID 또는 Calendar ID가 존재하지 않습니다.")
-        );
+        Calendar calendar = findCalendarByUserIdAndCalendarId(userId, calendarId);
 
         // Calendar 엔티티의 제목(title)과 내용(content)을 요청 DTO의 값으로 수정함
         calendar.update(calendarUpdateRequestDto.getTitle(), calendarUpdateRequestDto.getContent());
@@ -116,11 +108,23 @@ public class CalendarService {
     public void deleteCalendar(Long userId, Long calendarId) {
         // 유저 ID와 캘린더 ID가 일치하는 Calendar 엔티티를 조회함
         // 일치하는 Calendar 엔티티가 없으면 예외를 발생시킴
-        calendarRepository.findByUserIdAndId(userId, calendarId).orElseThrow(
-                () -> new IllegalArgumentException("해당 User ID 또는 Calendar ID가 존재하지 않습니다.")
-        );
+        findCalendarByUserIdAndCalendarId(userId, calendarId);
 
         // calendarId에 해당하는 Calendar 엔티티를 데이터베이스에서 삭제함
         calendarRepository.deleteById(calendarId);
+    }
+
+    // 주어진 userId로 User 엔티티를 조회하는 메서드
+    private User findUserById(Long userId) {
+        return userRepository.findById(userId).orElseThrow(
+                () -> new IllegalArgumentException("해당 User ID는 존재하지 않습니다.")
+        );
+    }
+
+    // 주어진 userId와 calendarId에 해당하는 Calendar 엔티티를 조회하는 메서드
+    private Calendar findCalendarByUserIdAndCalendarId(Long userId, Long calendarId) {
+        return calendarRepository.findByUserIdAndId(userId, calendarId).orElseThrow(
+                () -> new IllegalArgumentException("해당 User ID 또는 Calendar ID가 존재하지 않습니다.")
+        );
     }
 }

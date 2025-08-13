@@ -37,9 +37,7 @@ public class UserService {
     public UserReadSingleResponseDto getUser(Long userId) {
         // 유저 ID가 일치하는 User 엔티티를 조회함
         // 일치하는 User 엔티티가 없으면 예외를 발생시킴
-        User user = userRepository.findById(userId).orElseThrow(
-                () -> new IllegalArgumentException("해당 User ID는 존재하지 않습니다.")
-        );
+        User user = findUserById(userId);
 
         // user의 정보를 이용하여 응답 DTO을 생성하고 반환함
         return new UserReadSingleResponseDto(
@@ -56,9 +54,7 @@ public class UserService {
     public UserUpdateResponseDto updateUser(Long userId, UserUpdateRequestDto userUpdateRequestDto) {
         // 유저 ID가 일치하는 User 엔티티를 조회함
         // 일치하는 User 엔티티가 없으면 예외를 발생시킴
-        User user = userRepository.findById(userId).orElseThrow(
-                () -> new IllegalArgumentException("해당 User ID는 존재하지 않습니다.")
-        );
+        User user = findUserById(userId);
 
         // User 엔티티의 유저명(username)과 이메일(email)을 요청 DTO의 값으로 수정함
         user.update(userUpdateRequestDto.getUsername(), userUpdateRequestDto.getEmail());
@@ -78,11 +74,16 @@ public class UserService {
     public void deleteUser(Long userId) {
         // 유저 ID가 일치하는 User 엔티티를 조회함
         // 일치하는 User 엔티티가 없으면 예외를 발생시킴
-        userRepository.findById(userId).orElseThrow(
-                () -> new IllegalArgumentException("해당 User ID는 존재하지 않습니다.")
-        );
+        findUserById(userId);
 
         // userId에 해당하는 User 엔티티를 데이터베이스에서 삭제함
         userRepository.deleteById(userId);
+    }
+
+    // 주어진 userId로 User 엔티티를 조회하는 메서드
+    private User findUserById(Long userId) {
+        return userRepository.findById(userId).orElseThrow(
+                () -> new IllegalArgumentException("해당 User ID는 존재하지 않습니다.")
+        );
     }
 }
