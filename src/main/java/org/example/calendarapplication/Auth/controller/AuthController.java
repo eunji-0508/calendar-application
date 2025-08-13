@@ -20,9 +20,9 @@ public class AuthController {
     // 회원 가입
     @PostMapping("/signup")
     public String signup(
-            @RequestBody AuthSignUpRequestDto authRequestDto
+            @RequestBody AuthSignUpRequestDto authSignUpRequestDto
     ) {
-        authService.signup(authRequestDto);
+        authService.signup(authSignUpRequestDto);
 
         return "회원 가입이 완료되었습니다.";
     }
