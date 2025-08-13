@@ -1,5 +1,6 @@
 package org.example.calendarapplication.user.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.calendarapplication.user.dto.*;
 import org.example.calendarapplication.user.service.UserService;
@@ -55,7 +56,7 @@ public class UserController {
             // @PathVariable: URL로 전달된 값을 파라미터로 받아오는 역할을 함
             @PathVariable Long userId,
             // HTTP 요청 Body에 담긴 JSON 데이터를 UserUpdateRequestDto 객체로 변환함
-            @RequestBody UserUpdateRequestDto userUpdateRequestDto
+            @Valid @RequestBody UserUpdateRequestDto userUpdateRequestDto
     ) {
         // 해당 유저의 정보를 수정하고, 수정된 정보를 HTTP 200 OK와 함께 반환함
         return ResponseEntity.ok(userService.updateUser(userId, userUpdateRequestDto));
