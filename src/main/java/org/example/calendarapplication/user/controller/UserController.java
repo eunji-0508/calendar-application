@@ -12,14 +12,6 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
 
-    // 유저 생성 (Create)
-    @PostMapping("/users")
-    public ResponseEntity<UserCreateResponseDto> createUser(
-            @RequestBody UserCreateRequestDto userCreateRequestDto
-            ) {
-        return ResponseEntity.ok(userService.createUser(userCreateRequestDto));
-    }
-
     // 전체 유저 조회 (Read)
     @GetMapping("/users")
     public ResponseEntity<List<UserReadAllResponseDto>> getAllUsers() {

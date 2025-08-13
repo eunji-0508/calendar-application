@@ -2,9 +2,11 @@ package org.example.calendarapplication.Auth.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.example.calendarapplication.Auth.dto.AuthRequestDto;
-import org.example.calendarapplication.Auth.dto.AuthResponseDto;
+import org.example.calendarapplication.Auth.dto.AuthLoginRequestDto;
+import org.example.calendarapplication.Auth.dto.AuthLoginResponseDto;
+import org.example.calendarapplication.Auth.dto.AuthSignUpRequestDto;
 import org.example.calendarapplication.Auth.service.AuthService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,8 +20,8 @@ public class AuthController {
     // 회원 가입
     @PostMapping("/signup")
     public String signup(
-            @RequestBody AuthRequestDto authRequestDto
-            ) {
+            @RequestBody AuthSignUpRequestDto authRequestDto
+    ) {
         authService.signup(authRequestDto);
 
         return "회원 가입이 완료되었습니다.";
@@ -28,14 +30,14 @@ public class AuthController {
     // 로그인
     @PostMapping("/login")
     public String login(
-            @RequestBody AuthRequestDto authRequestDto,
+            @Valid @RequestBody AuthLoginRequestDto authLoginRequestDto,
             HttpServletRequest httpServletRequest
     ) {
         // Cookie Session을 발급함
-        AuthResponseDto result = authService.login(authRequestDto);
+        AuthLoginResponseDto result = authService.login(authLoginRequestDto);
 
         HttpSession session = httpServletRequest.getSession();  // 신규 세션을 생성함. JSESSIONID 쿠키를 발급함
-        session.setAttribute("USER_LOGIN", result.getId());  // 서버 메모리에 세션을 저장함
+        session.setAttribute("LOGIN_USER", result.getId());  // 서버 메모리에 세션을 저장함
 
         return "해당 User로 로그인이 완료되었습니다.";
     }
@@ -47,7 +49,7 @@ public class AuthController {
         HttpSession session = request.getSession(false);
 
         // 세션이 존재할 경우(로그인 했을 경우)
-        if(session != null) {
+        if (session != null) {
             session.invalidate();   // 해당 세션(데이터)을 삭제함
         }
     }

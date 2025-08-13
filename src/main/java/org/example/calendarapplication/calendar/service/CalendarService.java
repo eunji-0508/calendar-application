@@ -5,7 +5,7 @@ import org.example.calendarapplication.calendar.dto.*;
 import org.example.calendarapplication.calendar.entity.Calendar;
 import org.example.calendarapplication.calendar.repository.CalendarRepository;
 import org.example.calendarapplication.user.entity.User;
-import org.example.calendarapplication.user.service.UserService;
+import org.example.calendarapplication.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CalendarService {
     private final CalendarRepository calendarRepository;
-    private final UserService.UserRepository userRepository;
+    private final UserRepository userRepository;
 
     // 일정 생성 (Create)
     @Transactional
@@ -28,7 +28,7 @@ public class CalendarService {
                 calendarCreateRequestDto.getTitle(),
                 calendarCreateRequestDto.getContent(),
                 user
-                );
+        );
 
         Calendar savedCalendar = calendarRepository.save(calendar);
 

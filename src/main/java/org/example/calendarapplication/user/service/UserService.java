@@ -3,7 +3,7 @@ package org.example.calendarapplication.user.service;
 import lombok.RequiredArgsConstructor;
 import org.example.calendarapplication.user.dto.*;
 import org.example.calendarapplication.user.entity.User;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.example.calendarapplication.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
@@ -13,22 +13,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
-
-    // 유저 생성 (Create)
-    @Transactional
-    public UserCreateResponseDto createUser(UserCreateRequestDto userCreateRequestDto) {
-        User user = new User(userCreateRequestDto.getUsername(), userCreateRequestDto.getEmail(), userCreateRequestDto.getPassword());
-
-        User savedUser = userRepository.save(user);
-
-        return new UserCreateResponseDto(
-                savedUser.getId(),
-                savedUser.getUsername(),
-                savedUser.getEmail(),
-                savedUser.getCreatedAt(),
-                savedUser.getModifiedAt()
-        );
-    }
 
     // 전체 유저 조회 (Read)
     @Transactional(readOnly = true)
@@ -86,10 +70,5 @@ public class UserService {
         );
 
         userRepository.deleteById(userId);
-    }
-
-    // JpaRepository에 @Repository 포함되어 있기 때문에 안써도 됨
-    // <클래스명, 기본 키>
-    public static interface UserRepository extends JpaRepository<User, Long> {
     }
 }

@@ -1,4 +1,4 @@
-package org.example.calendarapplication.entity;
+package org.example.calendarapplication.common.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

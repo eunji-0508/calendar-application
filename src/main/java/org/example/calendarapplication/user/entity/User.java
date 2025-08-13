@@ -3,16 +3,22 @@ package org.example.calendarapplication.user.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.example.calendarapplication.entity.BaseEntity;
+import org.example.calendarapplication.common.entity.BaseEntity;
 
 @Entity
 @Getter
 @NoArgsConstructor
 public class User extends BaseEntity {  // 작성일과 수정일 필드는 상속받았기 때문에 가지고 있음
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;            // 유저 ID
+
+    @Column(unique = true, nullable = false)
     private String username;    // 유저명
+
+    @Column(unique = true, nullable = false)
     private String email;       // 이메일
+
     private String password;    // 비밀번호
 
     // 생성자

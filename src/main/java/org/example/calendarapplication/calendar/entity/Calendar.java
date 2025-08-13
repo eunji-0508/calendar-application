@@ -3,7 +3,7 @@ package org.example.calendarapplication.calendar.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.example.calendarapplication.entity.BaseEntity;
+import org.example.calendarapplication.common.entity.BaseEntity;
 import org.example.calendarapplication.user.entity.User;
 
 @Entity
