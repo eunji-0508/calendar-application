@@ -1,12 +1,9 @@
 package org.example.calendarapplication.user.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.calendarapplication.common.entity.BaseEntity;
-import org.hibernate.validator.constraints.Range;
 
 @Entity                 // Bean으로 등록할 때 쓰는 annotation, 데이터베이스 테이블과 매핑하는데 사용함
 @Getter                 // getter 메서드를 자동으로 생성해주는 annotation

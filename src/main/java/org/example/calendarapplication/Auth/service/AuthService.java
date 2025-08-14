@@ -16,7 +16,6 @@ public class AuthService {
     // 스프링 컨테이너로부터 의존성을 주입받는 싱글톤 UserRepository 객체
     // 싱글톤: 어떤 클래스를 하나의 객체로 만드는 것
     private final UserRepository userRepository;
-
     private final PasswordEncoder passwordEncoder;
 
     // 회원 가입
@@ -35,22 +34,22 @@ public class AuthService {
     }
 
     // 로그인
-    @Transactional
+    @Transactional(readOnly = true)
     public AuthLoginResponseDto login(AuthLoginRequestDto authLoginRequestDto) {
-//        // 이메일과 패스워드가 일치하는 User 엔티티를 조회함
-//        // 일치하는 User 엔티티가 없으면 예외를 발생시킴
-//        User user = userRepository.findByEmailAndPassword(authLoginRequestDto.getEmail(), authLoginRequestDto.getPassword()).orElseThrow(
-//                () -> new IllegalArgumentException("이메일 또는 비밀번호가 잘못되었습니다.")
-//        );
-//
-//        User user = userRepository.findByEmail(authLoginRequestDto.getEmail());
+        // email이 일치하는 User 엔티티를 조회함
+        // 일치하는 User 엔티티가 없으면 예외를 발생시킴
+        // 이메일 또는 비밀번호가 잘못되었습니다.라고 지정한 이유: 현업에서는 보안 권고사항 때문에 둘 중 무엇이 잘못되었는지 정확하게 알려주지 않음
+        User user = userRepository.findByEmail(authLoginRequestDto.getEmail()).orElseThrow(
+                () -> new IllegalArgumentException("이메일 또는 비밀번호가 잘못되었습니다.")
+        );
 
-        if(authLoginRequestDto.getPassword().e)
+        // 입력한 비밀번호와 암호화 된 비밀번호의 일치 여부 확인함
+        boolean success = passwordEncoder.matches(authLoginRequestDto.getPassword(), user.getPassword());
 
-        boolean success = passwordEncoder.matches(authLoginRequestDto.getPassword(), encodedPassword);
-
-        if(!success) {
-            throw new IllegalArgumentException("비밀번호가 옳지 않습니다.");
+        // 암호가 일치하지 않을 경우 예외를 발생시킴
+        // 이메일 또는 비밀번호가 잘못되었습니다.라고 지정한 이유: 현업에서는 보안 권고사항 때문에 둘 중 무엇이 잘못되었는지 정확하게 알려주지 않음
+        if (!success) {
+            throw new IllegalArgumentException("이메일 또는 비밀번호가 잘못되었습니다.");
         }
 
         // user의 id를 이용하여 응답 DTO을 생성하고 반환함
