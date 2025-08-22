@@ -1,9 +1,9 @@
-package org.example.calendarapplication.Auth.service;
+package org.example.calendarapplication.auth.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.calendarapplication.Auth.dto.AuthLoginRequestDto;
-import org.example.calendarapplication.Auth.dto.AuthLoginResponseDto;
-import org.example.calendarapplication.Auth.dto.AuthSignUpRequestDto;
+import org.example.calendarapplication.auth.dto.AuthLoginRequestDto;
+import org.example.calendarapplication.auth.dto.AuthLoginResponseDto;
+import org.example.calendarapplication.auth.dto.AuthSignUpRequestDto;
 import org.example.calendarapplication.common.config.PasswordEncoder;
 import org.example.calendarapplication.user.entity.User;
 import org.example.calendarapplication.user.repository.UserRepository;

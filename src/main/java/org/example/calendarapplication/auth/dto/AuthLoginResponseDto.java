@@ -1,4 +1,4 @@
-package org.example.calendarapplication.Auth.dto;
+package org.example.calendarapplication.auth.dto;
 
 import lombok.Getter;
 

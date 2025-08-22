@@ -1,13 +1,13 @@
-package org.example.calendarapplication.Auth.controller;
+package org.example.calendarapplication.auth.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.example.calendarapplication.Auth.dto.AuthLoginRequestDto;
-import org.example.calendarapplication.Auth.dto.AuthLoginResponseDto;
-import org.example.calendarapplication.Auth.dto.AuthSignUpRequestDto;
-import org.example.calendarapplication.Auth.service.AuthService;
+import org.example.calendarapplication.auth.dto.AuthLoginRequestDto;
+import org.example.calendarapplication.auth.dto.AuthLoginResponseDto;
+import org.example.calendarapplication.auth.dto.AuthSignUpRequestDto;
+import org.example.calendarapplication.auth.service.AuthService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
