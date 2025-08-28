@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController             // Bean으로 등록할 때 쓰는 annotation, @RequestBody + @Controller (Restful API를 작성하기 위해서 사용함)
+@RestController             // Bean으로 등록할 때 쓰는 annotation, @ResponseBody + @Controller (Restful API를 작성하기 위해서 사용함)
 @RequiredArgsConstructor       // 필수(final) 필드만을 매개변수로 하는 생성자를 자동으로 생성함
 public class AuthController {
     // 스프링 컨테이너로부터 의존성을 주입받는 싱글톤 AuthService 객체
